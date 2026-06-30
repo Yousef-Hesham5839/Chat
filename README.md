@@ -22,3 +22,7 @@ This project was developed with a strong focus on **UI/UX design**, smooth anima
 - **Animations**: `flutter_animate`
 - **Formatting**: `intl` (for precise timestamp handling)
 
+## Pictures
+<img width="1785" height="3072" alt="3" src="https://github.com/user-attachments/assets/c7a90a5b-6a53-4f7f-a6a1-57a63e8b2007" />
+
+
