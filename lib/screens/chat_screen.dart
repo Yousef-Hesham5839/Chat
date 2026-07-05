@@ -1,9 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
+
 import '../services/chat_service.dart';
+import '../models/app_colors.dart';
 
 class ChatScreen extends StatefulWidget {
   final String userId;
@@ -42,8 +43,7 @@ class _ChatScreenState extends State<ChatScreen> {
     );
 
     textController.clear();
-    
-    // Scroll to bottom after sending
+
     if (_scrollController.hasClients) {
       _scrollController.animateTo(
         0.0,
@@ -57,17 +57,19 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: AppColors.surface,
+        elevation: 0,
         title: Row(
           children: [
             CircleAvatar(
-              radius: 18,
-              backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+              backgroundColor: AppColors.avatarHint,
               child: Text(
-                widget.userName.isNotEmpty ? widget.userName[0].toUpperCase() : "?",
-                style: TextStyle(
-                  fontSize: 16,
+                widget.userName.isNotEmpty
+                    ? widget.userName[0].toUpperCase()
+                    : "?",
+                style: const TextStyle(
+                  color: AppColors.primary,
                   fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.primary,
                 ),
               ),
             ),
@@ -75,14 +77,16 @@ class _ChatScreenState extends State<ChatScreen> {
             Expanded(
               child: Text(
                 widget.userName,
-                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  color: AppColors.black,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
-            ),
+            )
           ],
         ),
-        centerTitle: false,
       ),
+
       body: Column(
         children: [
           Expanded(
@@ -92,27 +96,11 @@ class _ChatScreenState extends State<ChatScreen> {
                 user2: widget.userId,
               ),
               builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
+                if (!snapshot.hasData) {
                   return const Center(child: CircularProgressIndicator());
                 }
 
-                if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.chat_bubble_outline, size: 64, color: Colors.grey.shade400),
-                        const SizedBox(height: 16),
-                        Text(
-                          "Say hi to ${widget.userName}!",
-                          style: TextStyle(color: Colors.grey.shade600, fontSize: 16),
-                        ),
-                      ],
-                    ).animate().fade().scale(curve: Curves.easeOutBack),
-                  );
-                }
-
-                final messages = snapshot.data!.reversed.toList(); // reverse for bottom-up list
+                final messages = snapshot.data!.reversed.toList();
 
                 return ListView.builder(
                   reverse: true,
@@ -122,58 +110,59 @@ class _ChatScreenState extends State<ChatScreen> {
                   itemBuilder: (context, i) {
                     final msg = messages[i];
                     final isMe = msg.sender == myId;
-                    
-                    // The time field in MessageModel might be null depending on how it was saved.
-                    // Fallback to empty string if time is null.
-                    String formattedTime = "";
+
+                    String time = "";
                     if (msg.time != null) {
-                      formattedTime = DateFormat('hh:mm a').format(msg.time!);
+                      time = DateFormat('hh:mm a').format(msg.time!);
                     }
 
                     return Align(
-                      alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
+                      alignment: isMe
+                          ? Alignment.centerRight
+                          : Alignment.centerLeft,
                       child: Container(
                         margin: const EdgeInsets.only(bottom: 12),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 12,
+                        ),
                         constraints: BoxConstraints(
-                          maxWidth: MediaQuery.of(context).size.width * 0.75,
+                          maxWidth:
+                              MediaQuery.of(context).size.width * 0.75,
                         ),
                         decoration: BoxDecoration(
-                          color: isMe ? Theme.of(context).colorScheme.primary : Colors.white,
-                          borderRadius: BorderRadius.only(
-                            topLeft: const Radius.circular(16),
-                            topRight: const Radius.circular(16),
-                            bottomLeft: isMe ? const Radius.circular(16) : Radius.zero,
-                            bottomRight: isMe ? Radius.zero : const Radius.circular(16),
-                          ),
-                          boxShadow: [
+                          color: isMe
+                              ? AppColors.messageMe
+                              : AppColors.messageOther,
+                          borderRadius: BorderRadius.circular(
+                              AppColors.messageRadius),
+                          boxShadow: const [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.05),
+                              color: AppColors.shadow,
                               blurRadius: 5,
-                              offset: const Offset(0, 2),
-                            ),
+                              offset: Offset(0, 2),
+                            )
                           ],
                         ),
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               msg.text,
                               style: TextStyle(
-                                color: isMe ? Colors.white : Colors.black87,
-                                fontSize: 15,
+                                color: isMe
+                                    ? AppColors.white
+                                    : AppColors.textPrimary,
                               ),
                             ),
-                            if (formattedTime.isNotEmpty) ...[
-                              const SizedBox(height: 4),
+                            if (time.isNotEmpty)
                               Text(
-                                formattedTime,
-                                style: TextStyle(
-                                  color: isMe ? Colors.white70 : Colors.grey.shade500,
+                                time,
+                                style: const TextStyle(
+                                  color: AppColors.textSoft,
                                   fontSize: 10,
                                 ),
                               ),
-                            ]
                           ],
                         ),
                       ).animate().fade().slideY(begin: 0.1),
@@ -183,18 +172,17 @@ class _ChatScreenState extends State<ChatScreen> {
               },
             ),
           ),
-          
-          // Chat Input Area
+
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            decoration: BoxDecoration(
-              color: Colors.white,
+            padding: const EdgeInsets.all(12),
+            decoration: const BoxDecoration(
+              color: AppColors.surface,
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
+                  color: AppColors.shadow,
+                  offset: Offset(0, -3),
                   blurRadius: 10,
-                  offset: const Offset(0, -5),
-                ),
+                )
               ],
             ),
             child: SafeArea(
@@ -203,31 +191,30 @@ class _ChatScreenState extends State<ChatScreen> {
                   Expanded(
                     child: TextField(
                       controller: textController,
-                      textCapitalization: TextCapitalization.sentences,
-                      decoration: InputDecoration(
-                        hintText: "Type a message...",
-                        hintStyle: TextStyle(color: Colors.grey.shade400),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(24),
-                          borderSide: BorderSide.none,
-                        ),
+                      decoration: const InputDecoration(
+                        hintText: "Type message...",
                         filled: true,
-                        fillColor: Colors.grey.shade100,
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                        fillColor: AppColors.inputFill,
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(24)),
+                        ),
                       ),
-                      maxLines: null,
-                      onSubmitted: (_) => sendMessage(),
                     ),
                   ),
-                  const SizedBox(width: 12),
+                  const SizedBox(width: 10),
                   Container(
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primary,
+                    decoration: const BoxDecoration(
+                      color: AppColors.primary,
                       shape: BoxShape.circle,
                     ),
                     child: IconButton(
-                      icon: const Icon(Icons.send_rounded, color: Colors.white),
                       onPressed: sendMessage,
+                      icon: const Icon(
+                        Icons.send,
+                        color: AppColors.white,
+                      ),
                     ),
                   )
                 ],
