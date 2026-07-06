@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 
-import '../screens/users_screen.dart';
-import '../services/login_controller.dart';
-import '../models/app_colors.dart';
-import 'register_screen.dart';
+import '../services/auth_controller.dart';
+import 'package:chat_app/auth/register_screen.dart';
+import 'package:chat_app/widgets/auth_header.dart';
+import 'package:chat_app/widgets/auth_form.dart';
+import 'package:chat_app/widgets/auth_navigation_section.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -21,19 +21,10 @@ class _LoginScreenState extends State<LoginScreen> {
     controller.dispose();
     super.dispose();
   }
+  // passwordControllerو emailController عند إغلاق التطبيق يتم التخلص من
 
-  void handleLogin() {
-    controller.login(
-      setState: setState,
-      context: context,
-      onSuccess: () {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (_) => const UsersScreen()),
-        );
-      },
-    );
-  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -41,111 +32,43 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Icon(Icons.forum_rounded,
-                        size: 80, color: AppColors.primary)
-                    .animate()
-                    .fade()
-                    .scale(),
-
-                const SizedBox(height: 24),
-
-                Text(
-                  "Welcome Back",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.black,
-                  ),
-                ),
-
-                const SizedBox(height: 32),
-
-                Container(
-                  padding: const EdgeInsets.all(24),
-                  decoration: BoxDecoration(
-                    color: AppColors.card,
-                    borderRadius: BorderRadius.circular(24),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: AppColors.shadow,
-                        blurRadius: 20,
-                        offset: Offset(0, 10),
-                      )
-                    ],
-                  ),
-                  child: Column(
-                    children: [
-                      TextField(
-                        controller: controller.emailController,
-                        decoration: const InputDecoration(
-                          labelText: "Email",
-                          prefixIcon: Icon(Icons.email),
-                          filled: true,
-                          fillColor: AppColors.inputFill,
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-
-                      TextField(
-                        controller: controller.passwordController,
-                        obscureText: !controller.isPasswordVisible,
-                        decoration: InputDecoration(
-                          labelText: "Password",
-                          prefixIcon: const Icon(Icons.lock),
-                          suffixIcon: IconButton(
-                            icon: Icon(
-                              controller.isPasswordVisible
-                                  ? Icons.visibility
-                                  : Icons.visibility_off,
-                              color: AppColors.textSecondary,
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                controller.togglePassword(setState);
-                              });
-                            },
-                          ),
-                        ),
-                      ),
-
-                      const SizedBox(height: 24),
-
-                      ElevatedButton(
-                        onPressed:
-                            controller.isLoading ? null : handleLogin,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.primary,
-                          foregroundColor: AppColors.white,
-                        ),
-                        child: controller.isLoading
-                            ? const CircularProgressIndicator()
-                            : const Text("Sign In"),
-                      ),
-                    ],
-                  ),
-                ),
-
-                const SizedBox(height: 20),
-
-                TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => const RegisterScreen(),
-                      ),
-                    );
-                  },
-                  child: const Text("Create account"),
-                ),
-              ],
-            ),
-          ),
+                     padding: const EdgeInsets.symmetric(horizontal: 24),
+                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                       // (الأيقونة + Welcome Back)
+                       const AuthHeader(
+                        icon: Icons.forum_rounded,
+                        title: "Welcome Back",
+                       ),
+           
+                       // (حقول الإدخال + الزر)
+                       AuthForm(
+                        controller: controller,
+                        onSubmit: () {
+                         controller.login(
+                          setState: setState,
+                          context: context,
+                         );
+                        },
+                        onTogglePassword: () {
+                         setState(() {
+                          controller.togglePassword(setState);
+                         });
+                        },
+                       ),
+           
+                       const SizedBox(height: 20),
+                       
+                       // (Create account button)
+                       AuthNavigationSection(
+                       text: "Don't have an account?",
+                       buttonText: "Create Account",
+                       destination: const RegisterScreen(),
+                       ),
+                      ],
+                     ),
+         )
         ),
       ),
     );

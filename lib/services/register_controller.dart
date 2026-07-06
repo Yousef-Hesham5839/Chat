@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import '../services/auth_service.dart';
 
-class LoginController {
+class RegisterController {
+  final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -11,15 +12,16 @@ class LoginController {
   String? error;
   bool isPasswordVisible = false;
 
-  Future<void> login({
+  Future<void> register({
     required Function(void Function()) setState,
     required BuildContext context,
     required VoidCallback onSuccess,
   }) async {
+    final name = nameController.text.trim();
     final email = emailController.text.trim();
     final password = passwordController.text.trim();
 
-    if (email.isEmpty || password.isEmpty) {
+    if (name.isEmpty || email.isEmpty || password.isEmpty) {
       setState(() {
         error = "Please fill all fields";
       });
@@ -32,11 +34,13 @@ class LoginController {
     });
 
     try {
-      final user = await auth.login(email: email, password: password);
+      await auth.register(
+        name: name,
+        email: email,
+        password: password,
+      );
 
-      if (user != null) {
-        onSuccess();
-      }
+      onSuccess();
     } catch (e) {
       setState(() {
         error = e.toString().replaceAll("Exception:", "");
@@ -48,14 +52,15 @@ class LoginController {
     }
   }
 
+  void togglePassword(Function(void Function()) setState) {
+    setState(() {
+      isPasswordVisible = !isPasswordVisible;
+    });
+  }
+
   void dispose() {
+    nameController.dispose();
     emailController.dispose();
     passwordController.dispose();
   }
-
-  void togglePassword(Function(void Function()) setState) {
-  setState(() {
-    isPasswordVisible = !isPasswordVisible;
-  });
-}
 }

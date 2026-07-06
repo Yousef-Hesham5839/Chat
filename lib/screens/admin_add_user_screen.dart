@@ -36,9 +36,12 @@ class _AdminAddUserScreenState extends State<AdminAddUserScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Add User"),
-        backgroundColor: AppColors.admin,
+       title: const Text("Add User"),
+       backgroundColor: AppColors.admin,
       ),
+
+
+      
       body: Padding(
         padding: const EdgeInsets.all(24),
         child: Column(
