@@ -8,6 +8,9 @@ class AppColors {
   static const Color primaryAccent = Colors.indigoAccent;
   static const Color primarySoft = Color(0xFFE8EAF6);
 
+  // ================ Icons ==================
+  static const Color headerColor = Color(0xFF515B92);
+
   // ================= ADMIN =================
   static const Color admin = Color(0xFFFFB300);
 
@@ -56,7 +59,7 @@ class AppColors {
   static const Color messageMe = Colors.indigo;
   static const Color messageOther = Colors.white;
 
-  // 👇 بدائل الـ opacity (ثابتة بالكامل)
+
   static const Color shadow = Color(0x0D000000); // 5%
   static const Color shadowStrong = Color(0x1A000000); // 10%
 

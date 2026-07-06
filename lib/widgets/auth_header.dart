@@ -1,8 +1,7 @@
+import 'package:chat_app/models/app_colors.dart';
 import 'package:flutter/material.dart';
 
-import '../models/app_colors.dart';
-import 'custom_text_field.dart';
-import '../services/auth_controller.dart';
+
 
 class AuthHeader extends StatelessWidget {
   final IconData icon;
@@ -21,6 +20,7 @@ class AuthHeader extends StatelessWidget {
         Icon(
           icon,
           size: 80,
+          color: AppColors.headerColor,
         ),
 
         const SizedBox(height: 24),

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../services/chat_service.dart';
+import '../services/message_service.dart';
 
 class ChatController {
   final textController = TextEditingController();
   final ScrollController scrollController = ScrollController();
   final ChatService chatService = ChatService();
+  final MessageService messageService = MessageService();
 
   late final String myId;
 

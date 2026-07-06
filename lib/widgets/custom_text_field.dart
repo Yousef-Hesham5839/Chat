@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
   final String label;
-  final IconData prefixIcon;
+  final Widget prefixIcon;
   final Widget? suffixIcon;
   final bool obscureText;
 
@@ -23,7 +23,7 @@ class CustomTextField extends StatelessWidget {
       obscureText: obscureText,
       decoration: InputDecoration(
         labelText: label,
-        prefixIcon: Icon(prefixIcon),
+        prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
         filled: true,
       ),

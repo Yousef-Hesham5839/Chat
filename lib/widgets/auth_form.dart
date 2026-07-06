@@ -40,7 +40,9 @@ class AuthForm extends StatelessWidget {
             CustomTextField(
               controller: RegisterController().nameController,
               label: "Name",
-              prefixIcon: Icons.person,
+              prefixIcon: Icon(
+              Icons.person,
+            ),
             ),
             const SizedBox(height: 16),
           ],
@@ -49,7 +51,9 @@ class AuthForm extends StatelessWidget {
           CustomTextField(
             controller: controller.emailController,
             label: "Email",
-            prefixIcon: Icons.email,
+            prefixIcon: Icon(
+              Icons.email,
+            ),
           ),
 
           const SizedBox(height: 16),
@@ -58,7 +62,9 @@ class AuthForm extends StatelessWidget {
           CustomTextField(
             controller: controller.passwordController,
             label: "Password",
-            prefixIcon: Icons.lock,
+            prefixIcon: Icon(
+              Icons.lock,
+            ),
             obscureText: !controller.isPasswordVisible,
             suffixIcon: IconButton(
               icon: Icon(
@@ -73,15 +79,18 @@ class AuthForm extends StatelessWidget {
           const SizedBox(height: 24),
 
           // BUTTON
-          ElevatedButton(
-            onPressed: controller.isLoading ? null : onSubmit,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.primary,
-              foregroundColor: AppColors.white,
+          SizedBox(
+            width: double.infinity, // ياخد عرض الشاشة كله
+            child: ElevatedButton(
+              onPressed: controller.isLoading ? null : onSubmit,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.primary,
+                foregroundColor: AppColors.white,
+              ),
+              child: controller.isLoading
+                  ? const CircularProgressIndicator()
+                  : Text(isRegister ? "Sign Up" : "Sign In"),
             ),
-            child: controller.isLoading
-                ? const CircularProgressIndicator()
-                : Text(isRegister ? "Sign Up" : "Sign In"),
           ),
         ],
       ),

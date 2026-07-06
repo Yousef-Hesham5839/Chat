@@ -7,6 +7,7 @@ import '../models/app_colors.dart';
 import '../widgets/custom_appbar_widget.dart';
 import '../services/chat_controller.dart';
 
+
 class ChatScreen extends StatefulWidget {
   final String userId;
   final String userName;
@@ -52,7 +53,7 @@ class _ChatScreenState extends State<ChatScreen> {
         children: [
           Expanded(
             child: StreamBuilder<List>(
-              stream: controller.chatService.getMessages(
+              stream: controller.messageService.getMessages(
                 user1: controller.myId,
                 user2: widget.userId,
               ),
