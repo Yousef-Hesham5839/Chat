@@ -1,4 +1,4 @@
-import 'package:chat_app/models/app_colors.dart';
+import 'package:chat_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
 

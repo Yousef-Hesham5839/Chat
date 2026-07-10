@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../models/app_colors.dart';
+import '../../../core/constants/app_colors.dart';
 import 'custom_text_field.dart';
-import '../services/auth_controller.dart';
+import '../../auth/controllers/auth_controller.dart';
 
 class AuthForm extends StatelessWidget {
   final AuthController controller;

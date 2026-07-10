@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../services/auth_controller.dart';
-import 'package:chat_app/auth/register_screen.dart';
-import 'package:chat_app/widgets/auth_header.dart';
-import 'package:chat_app/widgets/auth_form.dart';
-import 'package:chat_app/widgets/auth_navigation_section.dart';
+import '../controllers/auth_controller.dart';
+import 'package:chat_app/features/auth/screens/register_screen.dart';
+import 'package:chat_app/features/users/widgets/auth_header.dart';
+import 'package:chat_app/features/users/widgets/auth_form.dart';
+import 'package:chat_app/features/users/widgets/auth_navigation_section.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../services/auth_controller.dart';
+import '../controllers/auth_controller.dart';
 import 'login_screen.dart';
-import 'package:chat_app/widgets/auth_header.dart';
-import 'package:chat_app/widgets/auth_form.dart';
-import 'package:chat_app/widgets/auth_navigation_section.dart';
+import 'package:chat_app/features/users/widgets/auth_header.dart';
+import 'package:chat_app/features/users/widgets/auth_form.dart';
+import 'package:chat_app/features/users/widgets/auth_navigation_section.dart';
 
 
 

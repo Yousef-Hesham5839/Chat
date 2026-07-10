@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:intl/intl.dart';
 
-import '../models/app_colors.dart';
+import '../../../core/constants/app_colors.dart';
 
 class MessageBubble extends StatelessWidget {
   final dynamic msg;

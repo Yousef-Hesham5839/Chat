@@ -1,13 +1,13 @@
-import 'package:chat_app/widgets/custom_appbar_widget.dart';
-import 'package:chat_app/widgets/users_list.dart';
+import 'package:chat_app/features/users/widgets/custom_appbar_widget.dart';
+import 'package:chat_app/features/users/widgets/users_list.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-import '../services/auth_service.dart';
-import '../services/chat_service.dart';
-import '../auth/login_screen.dart';
+import '../../auth/services/auth_service.dart';
+import '../../chat/services/chat_service.dart';
+import '../../auth/screens/login_screen.dart';
 import 'admin_add_user_screen.dart';
-import '../models/app_colors.dart';
+import '../../../core/constants/app_colors.dart';
 
 class UsersScreen extends StatefulWidget {
   const UsersScreen({super.key});

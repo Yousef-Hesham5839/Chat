@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../models/app_colors.dart';
-import '../widgets/logout_button.dart';
+import '../../../core/constants/app_colors.dart';
+import 'logout_button.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;

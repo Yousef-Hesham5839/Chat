@@ -1,11 +1,11 @@
-import 'package:chat_app/widgets/chat_input_bar.dart';
-import 'package:chat_app/widgets/message_bubble.dart';
+import 'package:chat_app/features/users/widgets/chat_input_bar.dart';
+import 'package:chat_app/features/chat/widgets/message_bubble.dart';
 import 'package:flutter/material.dart';
 
 
-import '../models/app_colors.dart';
-import '../widgets/custom_appbar_widget.dart';
-import '../services/chat_controller.dart';
+import '../../../core/constants/app_colors.dart';
+import '../../users/widgets/custom_appbar_widget.dart';
+import '../controller/chat_controller.dart';
 
 
 class ChatScreen extends StatefulWidget {

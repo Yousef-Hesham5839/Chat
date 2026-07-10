@@ -1,9 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-import 'auth/login_screen.dart';
+import 'features/auth/screens/login_screen.dart';
 import 'firebase_options.dart';
-import 'widgets/app_theme.dart';
+import 'core/widgets/app_theme.dart';
 
 Future<void> main() async {
   // async => means executing asynchronous processes عمليات غير متزامنة

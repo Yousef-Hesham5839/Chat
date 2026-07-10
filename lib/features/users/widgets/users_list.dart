@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-import '../models/app_colors.dart';
-import '../screens/chat_screen.dart';
+import '../../../core/constants/app_colors.dart';
+import '../../chat/screens/chat_screen.dart';
 
 class UsersList extends StatelessWidget {
   final List users;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../services/auth_service.dart';
-import '../models/app_colors.dart';
+import '../../auth/services/auth_service.dart';
+import '../../../core/constants/app_colors.dart';
 
 class AdminAddUserScreen extends StatefulWidget {
   const AdminAddUserScreen({super.key});
