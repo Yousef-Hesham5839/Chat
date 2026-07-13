@@ -67,6 +67,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 final messages = snapshot.data!.reversed.toList();
 
                 return ListView.builder(
+                 itemCount: messages.length,
                  itemBuilder: (context, i) {
                   final msg = messages[i];
 
