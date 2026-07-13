@@ -38,11 +38,9 @@ class AuthForm extends StatelessWidget {
           // NAME (only register)
           if (isRegister) ...[
             CustomTextField(
-              controller: RegisterController().nameController,
+              controller: (controller as RegisterController).nameController,
               label: "Name",
-              prefixIcon: Icon(
-              Icons.person,
-            ),
+              prefixIcon: Icon(Icons.person),
             ),
             const SizedBox(height: 16),
           ],
@@ -51,9 +49,7 @@ class AuthForm extends StatelessWidget {
           CustomTextField(
             controller: controller.emailController,
             label: "Email",
-            prefixIcon: Icon(
-              Icons.email,
-            ),
+            prefixIcon: Icon(Icons.email),
           ),
 
           const SizedBox(height: 16),
@@ -62,9 +58,7 @@ class AuthForm extends StatelessWidget {
           CustomTextField(
             controller: controller.passwordController,
             label: "Password",
-            prefixIcon: Icon(
-              Icons.lock,
-            ),
+            prefixIcon: Icon(Icons.lock),
             obscureText: !controller.isPasswordVisible,
             suffixIcon: IconButton(
               icon: Icon(
